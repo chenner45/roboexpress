@@ -8,7 +8,8 @@ import time
 from utils.utils import draw
 from utils.priorbox import PriorBox
 import blobconverter
-
+from eyes import Eyes
+import os
 # --------------- Arguments ---------------
 parser = argparse.ArgumentParser()
 parser.add_argument("-conf", "--confidence_thresh", help="set the confidence threshold", default=0.6, type=float)
@@ -63,6 +64,7 @@ detection_nn.out.link(xout_nn.input)
 print("devices:", dai.Device.getAllAvailableDevices())
 
 print("cameras:", [c.name for c in dai.Device().getConnectedCameras()])
+os.system('cls' if os.name == 'nt' else 'clear')
 with dai.Device(pipeline) as device:
 
     # Output queues will be used to get the rgb frames and nn data from the outputs defined above
@@ -73,6 +75,7 @@ with dai.Device(pipeline) as device:
     counter = 0
     fps = 0
     layer_info_printed = False
+    eyes = Eyes()
     while True:
         in_frame = q_cam.get()
         in_nn = q_nn.get()
@@ -117,7 +120,14 @@ with dai.Device(pipeline) as device:
                 landmarks=np.reshape(dets[:, 4:14], (-1, 5, 2)),
                 scores=dets[:, -1]
             )
-
+            # get norm x and norm y
+            center_x = dets[0, 0] + dets[0, 2] / 2
+            center_y = dets[0, 1] + dets[0, 3] / 2
+            norm_x = ((center_x / frame.shape[1]) - 0.5) * 2 
+            norm_y = ((center_y / frame.shape[0]) - 0.5) * 2
+            print('    ', end='', flush=True)
+            print(dets[0, :4], center_x, center_y, norm_x, norm_y, frame.shape)
+            eyes.draw_eyes(-norm_x, norm_y)
         # show fps
         color_black, color_white = (0, 0, 0), (255, 255, 255)
         label_fps = "Fps: {:.2f}".format(fps)
