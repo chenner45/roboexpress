@@ -137,7 +137,7 @@ with dai.Device(pipeline) as device:
                     0.4, color_black)
 
         # show frame
-        cv2.imshow("Detections", frame)
+        # cv2.imshow("Detections", frame)
 
         counter += 1
         if (time.time() - start_time) > 1:
@@ -146,5 +146,5 @@ with dai.Device(pipeline) as device:
             counter = 0
             start_time = time.time()
 
-        if cv2.waitKey(1) == ord('q'):
-            break
+        # if cv2.waitKey(1) == ord('q'):
+        #     break
