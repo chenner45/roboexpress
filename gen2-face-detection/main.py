@@ -127,7 +127,10 @@ with dai.Device(pipeline) as device:
             norm_y = ((center_y / frame.shape[0]) - 0.5) * 2
             print('    ', end='', flush=True)
             print(dets[0, :4], center_x, center_y, norm_x, norm_y, frame.shape)
-            eyes.draw_eyes(-norm_x, norm_y)
+
+            eyes.blink(-norm_x, norm_y)
+            # oval1_center, oval2_center, oval1_radius_x, oval2_radius_x, oval1_radius_y, oval2_radius_y, x_restrict, y_restrict = eyes.calc_eyes(-norm_x, norm_y)
+            # eyes.draw_eyes(oval1_center, oval2_center, oval1_radius_x, oval2_radius_x, oval1_radius_y, oval2_radius_y, x_restrict, 10)
         # show fps
         color_black, color_white = (0, 0, 0), (255, 255, 255)
         label_fps = "Fps: {:.2f}".format(fps)
