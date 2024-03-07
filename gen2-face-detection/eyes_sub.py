@@ -14,7 +14,7 @@ class BlinkTimer():
 
     def time_to_blink(self):
         self.cur_time = datetime.now()
-        if (self.cur_time - self. prev_blink).total_seconds() * 1000 < self.blink_interval:
+        if (self.cur_time - self.prev_blink).total_seconds() * 1000 < self.blink_interval:
             return False
 
         if (self.cur_time - self.prev_blink).total_seconds() * 1000 > self.blink_interval + self.blink_duration:
