@@ -54,7 +54,7 @@ class DepthAICameraNode(Node):
         self.device = dai.Device(self.pipeline)
         self.q_cam = self.device.getOutputQueue("cam", maxSize=4, blocking=False)
         self.q_nn = self.device.getOutputQueue(name="nn", maxSize=4, blocking=False)
-        self.timer = self.create_timer(0.001, self.timer_callback)
+        self.timer = self.create_timer(0.02, self.timer_callback)
     def timer_callback(self):
         in_frame = self.q_cam.tryGet()
         in_nn = self.q_nn.tryGet()
@@ -81,9 +81,10 @@ class DepthAICameraNode(Node):
                 bboxes = dets[:, 0:4]
                 msg = Point()
                 x = bboxes[0, 0] + bboxes[0, 2] / 2
-                y = bboxes[0, 1] + bboxes[0, 3] / 2
+                y = bboxes[0, 1] + bboxes[0, 3] / 2 + 150 # /2
                 norm_x = ((x / frame.shape[1]) - 0.5) * 2 
                 norm_y = ((y / frame.shape[0]) - 0.5) * 2
+
                 msg.x = norm_x
                 msg.y = norm_y
                 

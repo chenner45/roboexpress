@@ -2,14 +2,14 @@ import os
 import time
 import numpy as np
 
-MAX_X = 31
-MAX_Y = 18
+MAX_X = 89
+MAX_Y = 44
 
 class Eyes:
     def __init__(self):
         self.center_x = 0
         self.center_y = 0
-        self.eye_char = "0"
+        self.eye_char = "█"
 
         # define size of canvas
         self.width = MAX_X
@@ -32,15 +32,15 @@ class Eyes:
         
         # oval1_center = (6, 9)
         oval1_center = (oval1_center_x + oval_offset_x, oval1_center_y + oval_offset_y)
-        oval1_radius_x = 6
-        oval1_radius_y = 8
+        oval1_radius_x = 15
+        oval1_radius_y = 16
 
         oval2_center_x = int(3 * MAX_X / 4)
         oval2_center_y = MAX_Y // 2
         # oval2_center = (25, 9)
         oval2_center = (oval2_center_x + oval_offset_x, oval2_center_y + oval_offset_y)
-        oval2_radius_x = 6
-        oval2_radius_y = 8
+        oval2_radius_x = 15
+        oval2_radius_y = 16
 
         # shift right
         if x_scale > 0:
@@ -91,7 +91,7 @@ class Eyes:
         for i, row in enumerate(canvas):
             # if i == 1 or i >= len(canvas) - 3:
             #     continue
-            print(''.join([self.eye_char if val == 1 else ' ' for val in row]), flush=True)
+            print("\u001b[33m" + ''.join([self.eye_char if val == 1 else ' ' for val in row]) + '\u001b[0m', flush=True)
 
 
     def blink(self, x_scale, y_scale):
