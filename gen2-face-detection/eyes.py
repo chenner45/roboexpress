@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 MAX_X = 89
-MAX_Y = 44
+MAX_Y = 44 # 44
 
 class Eyes:
     def __init__(self):
@@ -50,6 +50,11 @@ class Eyes:
             oval1_radius_x *= -0.2*x_scale + 1
             oval1_radius_y *= -0.2*x_scale + 1
 
+            # oval2_radius_x *= -0.6*x_scale + 1
+            # oval2_radius_y *= -0.6*x_scale + 1
+            # oval1_radius_x *= -0.3*x_scale + 1
+            # oval1_radius_y *= -0.3*x_scale + 1
+
         # shift left
         if x_scale < 0:
             oval2_radius_x *= 0.2*x_scale + 1
@@ -87,7 +92,7 @@ class Eyes:
                 if ((x - oval2_center[0]) / oval2_radius_x) ** 2 + ((y - oval2_center[1]) / oval2_radius_y) ** 2 <= 1:
                     canvas[y, x] = 1
 
-        # Display the canvas
+        # Display the canvas TODO: maybe replace?
         for i, row in enumerate(canvas):
             # if i == 1 or i >= len(canvas) - 3:
             #     continue

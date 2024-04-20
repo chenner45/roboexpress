@@ -35,7 +35,7 @@ class PointSubscriber(Node):
         self.eyes = Eyes()
         os.system('cls' if os.name == 'nt' else 'clear')
 
-        self.blink_timer = BlinkTimer(3000, 500) # value in ms for how long to wait between blinks
+        self.blink_timer = BlinkTimer(3000, 300) # value in ms for how long to wait between blinks
 
     def point_callback(self, msg):
         self.latest_point.x = msg.x

@@ -81,12 +81,23 @@ class PointSubscriber(Node):
                     #     msg.linear.x = 0.01
                     #     self.cur_angle = min(max(self.cur_angle - 0.01, -1), 1)
                     #     joy.axes[3] = self.cur_angle
-
-                    self.cur_angle = min(max(self.cur_angle - self.latest_msg.x * 0.015, -1), 1)
-                    self.cur_angley = min(max(self.cur_angley - self.latest_msg.y * 0.01, -1), 1)
+                    self.cur_angle = min(max(self.latest_msg.x * -0.5, -1), 1)
+                    
+                    # self.cur_angle = min(max(self.cur_angle - self.latest_msg.x * 0.0025, -1), 1)
+                    self.cur_angley = min(max(self.cur_angley - self.latest_msg.y * 0.01, -0.5), 0.5)
+                    joy.axes[1] = 0.5
                     joy.axes[3] = self.cur_angle
                     joy.axes[4] = self.cur_angley
+                    joy.axes[2] = -1
+                    joy.buttons[6] = 1 # Turning on walking
             # msg.angular.z = 0.0  # Angular velocity (rad/s)
+       # joy.axes[2] = -1
+            else:
+                joy.axes[1] = 0.25
+                joy.axes[3] = 0
+                joy.axes[4] = 0
+                joy.axes[2] = -1
+
             self.publisher.publish(joy)
             self.get_logger().info(f'Publishing: {joy} for mode: {self.mode}')
         # else:
