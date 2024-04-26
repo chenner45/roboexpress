@@ -10,7 +10,8 @@ np.set_printoptions(threshold=np.inf)
 def animate(frames, times):
     assert len(frames) == len(times), "Length of frames and times lists must be equal"
 
-    os.system('clear')  # Clear the terminal
+    os.system('cls' if os.name == 'nt' else 'clear')
+  # Clear the terminal
 
     for frame, display_time in zip(frames, times):
         print(f'\033[{0};{0}H', end='', flush=True)
@@ -21,6 +22,7 @@ def animate(frames, times):
         
         # Wait for the specified time
         time.sleep(display_time)
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 BLINK_FILES = ["blink1", "blink2", "blink3", "blink4", "blink5", "blink6", "blink7", "blink8", "blink9", "blink10", "blink9", "blink8", "blink7", "blink6", "blink5", "blink4", "blink3", "blink2", "blink1"]
 BLINK_TIMES = [0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.03, 0.03, 0.03, 0.03, 0.03, 0.5]
