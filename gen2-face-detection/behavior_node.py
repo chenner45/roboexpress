@@ -62,8 +62,9 @@ class PointSubscriber(Node):
                 
         #         # msg.linear.x = self.scan_dir * 0.01
         #         joy.axes[0] = self.scan_dir * 0.01
-        if self.latest_msg is not None:
-
+        print(joy.buttons[7])
+        if self.latest_msg is not None and joy.buttons[7] > 0:  # If R2 is pressed 
+            print("pressed")
             if self.mode == "track":
                 # If we haven't found a detection in a while, then stop and go back to search
                 if False and (datetime.now() - self.latest_msg_time).total_seconds() > 2:
@@ -82,8 +83,6 @@ class PointSubscriber(Node):
                     #     self.cur_angle = min(max(self.cur_angle - 0.01, -1), 1)
                     #     joy.axes[3] = self.cur_angle
                     self.cur_angle = min(max(self.latest_msg.x * -0.5, -1), 1)
-                    
-                    # self.cur_angle = min(max(self.cur_angle - self.latest_msg.x * 0.0025, -1), 1)
                     self.cur_angley = min(max(self.cur_angley - self.latest_msg.y * 0.01, -0.5), 0.5)
                     joy.axes[1] = 0.5
                     joy.axes[3] = self.cur_angle

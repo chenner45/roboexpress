@@ -10,7 +10,7 @@ def print_np(arr):
 def load_np(filenames):
     loaded_arrays = []
     for filename in filenames:
-        loaded_arrays.append(np.load("eyes/" + filename + ".npy"))
+        loaded_arrays.append(np.load("/home/pi/roboexpress/gen2-face-detection/eyes/" + filename + ".npy"))
     return loaded_arrays
 
 def save_np(filename, arr):
@@ -135,3 +135,17 @@ def process_image(filename, width_between, canvas_height, canvas_width):
     for line in arr:
         print(''.join(line))
     save_np(filename, arr)
+
+
+def main():
+    # process_image("heart", 7, 45, 90)
+
+    # eye = load_np(["heart"])[0]
+    # print_np(eye)
+    # eye = load_np(["blinktest"])[0]
+    # print_np(eye)
+
+    pass
+
+if __name__ == "__main__":
+    main()
